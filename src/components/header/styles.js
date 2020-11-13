@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core'
+import { fade, makeStyles } from '@material-ui/core'
+import { grey } from '@material-ui/core/colors'
 
 export default makeStyles(theme => ({
     HeaderContainer: {
@@ -17,13 +18,20 @@ export default makeStyles(theme => ({
     },
     HeaderLinkList: {
         display: "inline-flex",
-        gap: "16px"
+        gap: "16px",
+        "& .active": {
+            color: theme.palette.getContrastText(theme.palette.primary.main),
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: theme.spacing(1),
+            boxShadow: theme.shadows[6]
+        },
     },
     HeaderButtonList: {
         marginLeft: theme.spacing(2)
     },
     HeaderButtonItem: {
         display: "flex",
+        padding: theme.spacing(1),
         "& svg": {
             marginRight: theme.spacing(0.5)
         }

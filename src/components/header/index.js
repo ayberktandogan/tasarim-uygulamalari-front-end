@@ -7,19 +7,20 @@ import { BiBuilding } from "react-icons/bi"
 import { SiGoogleclassroom } from "react-icons/si"
 import { FaSchool } from "react-icons/fa"
 import { HeaderLogoDark, HeaderLogoLight } from '../../config/images';
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import useStyles from "./styles"
 import UserContext from '../../contexts/user.context';
 import SettingsContext from '../../contexts/settings.context';
+import { CLASSES_ROUTE, DEPARTMENTS_ROUTE, INDEX_ROUTE, NOTES_ROUTE, SCHOOLS_ROUTE } from '../../config/front-routes';
 
 function HeaderLink(props) {
     const classes = useStyles()
     return (
-        <Link to={props.to}>
+        <NavLink exact to={props.to}>
             <Typography variant="h6" className={classes.HeaderButtonItem}>
                 {props.icon} {props.title}
             </Typography>
-        </Link>
+        </NavLink>
     )
 }
 
@@ -28,12 +29,12 @@ function MobileHeaderLink(props) {
     return (
         <>
             {to ?
-                <Link to={to} onClick={() => setSwipeableMenu(state => !state)}>
+                <NavLink exact to={to} onClick={() => setSwipeableMenu(state => !state)}>
                     <ListItem button key={title + "mobile"}>
                         {icon ? <ListItemIcon>{icon}</ListItemIcon> : ""}
                         <ListItemText primary={title} />
                     </ListItem>
-                </Link>
+                </NavLink>
                 :
                 <ListItem button key={title + "mobile"} onClick={onClick || undefined}>
                     {icon ? <ListItemIcon>{icon}</ListItemIcon> : ""}
@@ -55,27 +56,27 @@ export default function Header() {
 
     const HeaderLinkList = [
         {
-            to: "/",
+            to: INDEX_ROUTE,
             title: "Ana sayfa",
             icon: <MdHome size={20} />
         },
         {
-            to: "/okullar",
+            to: SCHOOLS_ROUTE,
             title: "Okullar",
             icon: <FaSchool size={20} />
         },
         {
-            to: "/bolumler",
+            to: DEPARTMENTS_ROUTE,
             title: "Bölümler",
             icon: <BiBuilding size={20} />
         },
         {
-            to: "/dersler",
+            to: CLASSES_ROUTE,
             title: "Dersler",
             icon: <SiGoogleclassroom size={20} />
         },
         {
-            to: "/notlar",
+            to: NOTES_ROUTE,
             title: "Notlar",
             icon: <GiBookshelf size={20} />
         }

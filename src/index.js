@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -22,7 +22,7 @@ function Mount() {
   }, [settings])
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <SettingsContext.Provider value={[settings, setSettings]}>
         <UserContext.Provider value={[user, setUser]}>
           <ThemeProvider theme={getTheme(settings.theme)}>
@@ -31,7 +31,7 @@ function Mount() {
           </ThemeProvider>
         </UserContext.Provider>
       </SettingsContext.Provider>
-    </React.StrictMode>
+    </StrictMode>
   )
 }
 
