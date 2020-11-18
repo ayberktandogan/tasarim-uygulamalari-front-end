@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import getTheme from './config/theming';
 
 import defaultSettings, { handleStateChange as handleSettingsStateChange } from './config/localStorage/settings'
-import defaultUser from './config/localStorage/user'
+import defaultUser, { handleStateChange as handleUserStateChange } from './config/localStorage/user'
 import SettingsContext from './contexts/settings.context'
 import UserContext from './contexts/user.context';
 
@@ -20,6 +20,10 @@ function Mount() {
   useEffect(() => {
     handleSettingsStateChange(settings)
   }, [settings])
+
+  useEffect(() => {
+    handleUserStateChange(user)
+  }, [user])
 
   return (
     <StrictMode>

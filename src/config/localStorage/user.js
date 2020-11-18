@@ -10,7 +10,7 @@ try {
 const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
 
 export function handleStateChange(newState) {
-    localStorage.setItem("app-settings", JSON.stringify(newState))
+    localStorage.setItem("user", JSON.stringify(newState))
 }
 
 export default user

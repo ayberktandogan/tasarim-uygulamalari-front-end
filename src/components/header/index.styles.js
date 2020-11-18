@@ -60,6 +60,10 @@ export default makeStyles(theme => ({
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center"
+    },
+    AvatarSmall: {
+        width: 32,
+        height: 32
     }
 }))
 

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { AppBar, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Avatar, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core'
 
 import { MdAccountCircle, MdBrightness2, MdWbSunny, MdMenu, MdHome, MdArrowBack } from "react-icons/md";
 import { GiBookshelf } from "react-icons/gi"
@@ -8,10 +8,10 @@ import { SiGoogleclassroom } from "react-icons/si"
 import { FaSchool } from "react-icons/fa"
 import { HeaderLogoDark, HeaderLogoLight } from '../../config/images';
 import { Link, NavLink } from 'react-router-dom'
-import useStyles from "./styles"
+import useStyles from "./index.styles"
 import UserContext from '../../contexts/user.context';
 import SettingsContext from '../../contexts/settings.context';
-import { CLASSES_ROUTE, DEPARTMENTS_ROUTE, INDEX_ROUTE, NOTES_ROUTE, SCHOOLS_ROUTE } from '../../config/front-routes';
+import { CLASSES_ROUTE, DEPARTMENTS_ROUTE, INDEX_ROUTE, LOGIN_ROUTE, NOTES_ROUTE, SCHOOLS_ROUTE, REGISTER_ROUTE } from '../../config/front-routes';
 
 function HeaderLink(props) {
     const classes = useStyles()
@@ -130,7 +130,7 @@ export default function Header() {
                                 <MdBrightness2 />}
                         </IconButton>
                         <IconButton onClick={HandleUserMenuButtonClick}>
-                            <MdAccountCircle />
+                            {user.username ? <Avatar className={classes.AvatarSmall}>{user.username[0]}</Avatar> : <MdAccountCircle />}
                         </IconButton>
                     </div>
                     <Menu
@@ -151,11 +151,21 @@ export default function Header() {
                         <div>
                             {user.token
                                 ?
-                                <MenuItem>Çıkış yap</MenuItem>
+                                <div onClick={() => setUser({})}>
+                                    <MenuItem>Çıkış yap</MenuItem>
+                                </div>
                                 :
                                 <>
-                                    <MenuItem>Giriş yap</MenuItem>
-                                    <MenuItem>Kayıt ol</MenuItem>
+                                    <MenuItem>
+                                        <Link to={LOGIN_ROUTE}>
+                                            Giriş yap
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to={REGISTER_ROUTE}>
+                                            Kayıt ol
+                                        </Link>
+                                    </MenuItem>
                                 </>
                             }
                         </div>

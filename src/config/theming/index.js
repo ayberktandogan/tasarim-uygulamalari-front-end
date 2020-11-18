@@ -71,9 +71,17 @@ const general = {
                 a: {
                     textDecoration: "none",
                     color: "inherit"
-                }
+                },
             },
         },
+        MuiOutlinedInput: {
+            input: {
+                '&:-webkit-autofill': {
+                    transition: "background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s",
+                    transitionDelay: "background-color 5000s, color 5000s"
+                },
+            },
+        }
     },
 }
 
