@@ -72,6 +72,10 @@ const general = {
                     textDecoration: "none",
                     color: "inherit"
                 },
+                p: {
+                    "margin-block-start": 0,
+                    "margin-block-end": 0
+                }
             },
         },
         MuiOutlinedInput: {

@@ -13,6 +13,8 @@ import defaultUser, { handleStateChange as handleUserStateChange } from './confi
 import SettingsContext from './contexts/settings.context'
 import UserContext from './contexts/user.context';
 
+import { Document } from 'react-pdf/dist/esm/entry.webpack';
+
 function Mount() {
   const [settings, setSettings] = useState(defaultSettings)
   const [user, setUser] = useState(defaultUser)

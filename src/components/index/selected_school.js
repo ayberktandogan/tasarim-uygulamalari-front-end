@@ -69,9 +69,11 @@ export default function SelectedSchool(props) {
                             {schoolData.name}
                         </Typography>
                         {schoolData.web_pages.length ?
-                            <Typography variant="body1">
-                                <b>Website</b>: {schoolData.web_pages[0]}
-                            </Typography>
+                            <a href={schoolData.web_pages[0]} target="_blank" rel="noreferrer">
+                                <Typography variant="body1">
+                                    <b>Website</b>: {schoolData.web_pages[0]}
+                                </Typography>
+                            </a>
                             : ""}
                         {schoolData.domains.length ?
                             <Typography variant="body1">

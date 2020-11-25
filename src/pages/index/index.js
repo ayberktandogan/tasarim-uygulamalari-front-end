@@ -36,12 +36,12 @@ export default function IndexPage() {
     }, [])
 
     useEffect(() => {
-        if (!selectedSchool) {
-            setSelectedSchoolDatabaseData(null)
-            return setSelectedSchoolsNotesError(null)
-        }
         setSelectedSchoolDatabaseData(null)
         setSelectedSchoolsNotesError(null)
+        setSelectedSchoolsNotes(null)
+
+        if (!selectedSchool) return
+
         setSelectedSchoolsNotesLoading(true)
         getDataFromAPI({ route: schoolRoute + `/school-notes/${selectedSchool.domains[0]}`, limit: 8 })
             .then(res => {

@@ -6,7 +6,7 @@ import { GiBookshelf } from "react-icons/gi"
 import { BiBuilding } from "react-icons/bi"
 import { SiGoogleclassroom } from "react-icons/si"
 import { FaSchool } from "react-icons/fa"
-import { HeaderLogoDark, HeaderLogoLight } from '../../config/images';
+// import { HeaderLogoDark, HeaderLogoLight } from '../../config/images';
 import { Link, NavLink } from 'react-router-dom'
 import useStyles from "./index.styles"
 import UserContext from '../../contexts/user.context';
