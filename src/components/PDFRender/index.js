@@ -1,13 +1,15 @@
-import { Button, CircularProgress, Divider, Grid } from '@material-ui/core';
+import { Button, Divider, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import LazyLoad from 'react-lazyload';
-import { GrPrevious, GrNext, GrZoomIn, GrZoomOut, GrDocumentDownload } from 'react-icons/gr'
+import { GrPrevious, GrNext, GrZoomIn, GrZoomOut, GrDocumentDownload, GrClose } from 'react-icons/gr'
 import { Element, Events, scrollSpy, scroller } from 'react-scroll'
 import { Waypoint } from 'react-waypoint';
 import useStyles from './index.styles'
 import { SizeMe } from 'react-sizeme';
+import { useHistory } from 'react-router-dom';
+import Loading from '../loading';
 
 function PageDivider() {
     const classes = useStyles()
@@ -33,6 +35,7 @@ export default function PDFRenderer(props) {
     const [pageSizes, setPageSize] = useState(null);
     const [buttonScrolling, setButtonScrolling] = useState(false)
     const [loading, setLoading] = useState(true)
+    const history = useHistory()
     const classes = useStyles({ pageScale })
 
     let timerForButtonScrolling = null
@@ -109,6 +112,10 @@ export default function PDFRenderer(props) {
         setPageNumber(to)
     }
 
+    function _handleBackButtonClick() {
+        history.goBack()
+    }
+
     return (
         <>
             <div className={classes.MainContainer}>
@@ -160,6 +167,13 @@ export default function PDFRenderer(props) {
                                     <GrDocumentDownload size={16} style={{ marginTop: -3, marginRight: 8 }} /> Dosyayı İndir
                                 </Button>
                             </div>
+                            <div className={classes.BackButtonContainer}>
+                                <Button
+                                    onClick={_handleBackButtonClick}
+                                >
+                                    <GrClose size={16} />
+                                </Button>
+                            </div>
                         </div>
                         <Divider />
                     </Grid>
@@ -195,7 +209,6 @@ export default function PDFRenderer(props) {
                                                             scrollContainer="#scrollContainer"
                                                             height={pageSizes ? ((size.width - 64) * pageScale / pageSizes[index + 1].width) * pageSizes[index + 1].height : 0}
                                                         >
-
                                                             <Page width={size.width * pageScale - 64}
                                                                 renderTextLayer={false}
                                                                 renderAnnotationLayer={false}
@@ -206,7 +219,7 @@ export default function PDFRenderer(props) {
                                                         </LazyLoad>
                                                     </Element>
                                                 ))
-                                            : <CircularProgress />}
+                                            : <Loading />}
                                     </Document>
                                 </div>
                             )}

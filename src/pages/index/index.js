@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import SearchBox from "../../components/index/search_box";
 import getDataFromAPI from "../../helpers/getDataFromAPI";
@@ -7,6 +7,7 @@ import useStyles from './index.styles'
 import SelectedSchool from "../../components/index/selected_school";
 import SelectedSchoolNotes from "../../components/index/selected_school_notes";
 import { Alert } from "@material-ui/lab";
+import Loading from "../../components/loading";
 
 export default function IndexPage() {
     const classes = useStyles()
@@ -31,7 +32,7 @@ export default function IndexPage() {
                 }
             }).catch(err => {
                 setSchoolListLoading(false)
-                setSchoolListError(err.response.data)
+                setSchoolListError(err && err.response ? err.response.data : err.message)
             })
     }, [])
 
@@ -57,6 +58,8 @@ export default function IndexPage() {
             })
     }, [selectedSchool])
 
+    console.log(selectedSchoolsNotes)
+
     return (
         <>
             <Container maxWidth="lg" className={classes.MainContainer}>
@@ -70,10 +73,10 @@ export default function IndexPage() {
                         </Typography>
                         :
                         <div className={classes.SearchBoxSection}>
-                            <SearchBox SCHOOL_LIST={schoolList} setSelectedSchool={setSelectedSchool} />
+                            <SearchBox id="school_list" DATA_LIST={schoolList} label="Okul Listesi" setSelectedSchool={setSelectedSchool} />
                         </div>
                     :
-                    <CircularProgress />}
+                    <Loading />}
                 {selectedSchool ?
                     <div className={classes.SelectedSchoolSection}>
                         <SelectedSchool
@@ -91,7 +94,10 @@ export default function IndexPage() {
                         </Alert>
                         :
                         <div className={classes.SelectedSchoolNotesSection}>
-                            <SelectedSchoolNotes selectedSchoolsNotes={selectedSchoolsNotes} />
+                            <SelectedSchoolNotes
+                                schoolDatabaseData={selectedSchoolDatabaseData}
+                                selectedSchoolsNotes={selectedSchoolsNotes}
+                                setSelectedSchoolsNotes={setSelectedSchoolsNotes} />
                         </div>
                     :
                     ""

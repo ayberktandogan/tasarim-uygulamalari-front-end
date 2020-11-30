@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import useStyles from './selected_school.styles'
 import PropTypes from 'prop-types'
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import postDataToAPI from '../../helpers/postDataToAPI'
 import { schoolRoute } from '../../config/api-routes'
+import Loading from '../loading'
 
 export default function SelectedSchool(props) {
     const { schoolData, error, setError, schoolDatabaseData, setSelectedSchoolDatabaseData } = props
@@ -96,7 +97,7 @@ export default function SelectedSchool(props) {
                                 : "Görünüşe göre bu okul sistemimizde ekli değil, eklemek ister misiniz?"}
                         </Typography>
                         <Button fullWidth variant="outlined" disabled={handleClickError ? true : undefined} onClick={_handleAddSchoolClick}>
-                            {handleClickLoading ? <CircularProgress size={24} /> : handleClickError ? handleClickError.message : "Okulu Sisteme Ekle"}
+                            {handleClickLoading ? <Loading size={24} /> : handleClickError ? handleClickError.message : "Okulu Sisteme Ekle"}
                         </Button>
                     </div>
                     : ""}

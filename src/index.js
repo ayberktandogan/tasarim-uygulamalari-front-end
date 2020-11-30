@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { SnackbarProvider } from 'notistack';
 
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -33,7 +34,9 @@ function Mount() {
         <UserContext.Provider value={[user, setUser]}>
           <ThemeProvider theme={getTheme(settings.theme)}>
             <CssBaseline />
-            <App />
+            <SnackbarProvider maxSnack={3}>
+              <App />
+            </SnackbarProvider>
           </ThemeProvider>
         </UserContext.Provider>
       </SettingsContext.Provider>

@@ -122,6 +122,22 @@ export default makeStyles(theme => ({
             }
         }
     },
+    BackButtonContainer: {
+        display: "grid",
+        justifyContent: "center",
+        gridTemplateColumns: "auto",
+        marginLeft: "auto",
+        // Grommet ikonlarının rengini değişmek için gerekiyor. Normalde
+        // component içerisinde değiştirebiliyor.
+        "& path": {
+            stroke: theme.palette.type === "dark" ? "#fff" : "#000"
+        },
+        "& .Mui-disabled": {
+            "& path": {
+                stroke: grey[700]
+            }
+        }
+    },
     PageInfoContainer: {
         padding: theme.spacing(1, 2),
         textAlign: "center"

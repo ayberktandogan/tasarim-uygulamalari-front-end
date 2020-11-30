@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import useStyles from './index.styles'
+//import useStyles from './index.styles'
 import getDataFromAPI from '../../helpers/getDataFromAPI'
 import { noteFileRoute, noteRoute } from '../../config/api-routes'
 import { Alert } from '@material-ui/lab'
-import { CircularProgress, Container, Typography } from '@material-ui/core'
-import { Document, Page } from 'react-pdf'
+import { Typography } from '@material-ui/core'
 import PDFRenderer from '../../components/PDFRender'
+import Loading from '../../components/loading'
 
 export default function NotePage(props) {
-    const classes = useStyles()
+    //const classes = useStyles()
     const { note_id } = props.match.params
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
@@ -46,7 +46,7 @@ export default function NotePage(props) {
                             {error}
                         </Alert>
                     </>
-                    : <CircularProgress size={24} />
+                    : <Loading size={24} />
             }
         </>
     )

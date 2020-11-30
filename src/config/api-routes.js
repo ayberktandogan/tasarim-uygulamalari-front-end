@@ -1,6 +1,6 @@
 const schoolRoute = `/school`
 const departmentRoute = `/department`
-const noteRoute = ({ note_id }) => `/note${note_id ? `/${note_id}` : ""}`
+const noteRoute = (props) => `/note${props && props.note_id ? `/${props.note_id}` : ""}`
 const authRoute = `/auth`
 const roleRoute = `/role`
 const userRoleRoute = `/user_role`

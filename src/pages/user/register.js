@@ -12,7 +12,8 @@ import { MdArrowBack } from 'react-icons/md'
 import useStyles from './register.styles'
 import { useState } from 'react'
 import { authRoute } from '../../config/api-routes'
-import { CircularProgress, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import Loading from '../../components/loading'
 
 export default function LoginPage() {
     const classes = useStyles();
@@ -118,7 +119,7 @@ export default function LoginPage() {
                             className={classes.SubmitButton}
                             disabled={registerLoading ? true : undefined}
                         >
-                            {registerLoading ? <CircularProgress size={24} /> : "Kayıt ol"}
+                            {registerLoading ? <Loading size={24} /> : "Kayıt ol"}
                         </Button>
                         <Grid container>
                             {/* <Grid item xs>

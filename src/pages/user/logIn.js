@@ -13,7 +13,8 @@ import useStyles from './logIn.styles'
 import { useContext, useState } from 'react'
 import { authRoute } from '../../config/api-routes'
 import UserContext from '../../contexts/user.context'
-import { CircularProgress, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import Loading from '../../components/loading'
 
 export default function LoginPage() {
     const classes = useStyles();
@@ -33,7 +34,7 @@ export default function LoginPage() {
         postDataToAPI({ route: authRoute + "/giris-yap", data: userData })
             .then(res => {
                 if (res.status === 200) {
-                    setUser({ username: res.data.username, token: res.data.token, exp: res.data.exp })
+                    setUser({ username: res.data.username, token: res.data.token, exp: res.data.exp, admin: res.data.admin })
                     setLoginLoading(false)
                 }
             }).catch(err => {
@@ -95,7 +96,7 @@ export default function LoginPage() {
                             className={classes.SubmitButton}
                             disabled={loginLoading ? true : undefined}
                         >
-                            {loginLoading ? <CircularProgress size={24} /> : "Giriş Yap"}
+                            {loginLoading ? <Loading size={24} /> : "Giriş Yap"}
                         </Button>
                         <Grid container>
                             {/* <Grid item xs>

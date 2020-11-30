@@ -14,6 +14,6 @@ export default makeStyles(theme => ({
         textAlign: "initial"
     },
     SelectedSchoolNotesSection: {
-        marginTop: theme.spacing(4)
+        marginTop: theme.spacing(6)
     }
 }))

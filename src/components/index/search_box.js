@@ -94,7 +94,7 @@ const renderGroup = (params) => [
 
 
 export default function SearchBox(props) {
-    const { SCHOOL_LIST, setSelectedSchool } = props
+    const { id, DATA_LIST, label, setSelectedSchool } = props
     const classes = useStyles()
 
     function _handleInputChange(event, value) {
@@ -102,25 +102,30 @@ export default function SearchBox(props) {
     }
 
     return (
-        <Autocomplete
-            id="school-list"
-            fullWidth
-            disableListWrap
-            autoHighlight
-            classes={classes}
-            ListboxComponent={ListboxComponent}
-            renderGroup={renderGroup}
-            getOptionLabel={option => option.name}
-            options={SCHOOL_LIST}
-            onChange={_handleInputChange}
-            groupBy={(option) => option.name[0].toUpperCase()}
-            renderInput={(params) => <TextField {...params} variant="outlined" label="Okul Listesi" />}
-            renderOption={(option) => <Typography noWrap>{option.name}</Typography>}
-        />
+        DATA_LIST.length ?
+            <Autocomplete
+                id={id}
+                fullWidth
+                disableListWrap
+                autoHighlight
+                classes={classes}
+                ListboxComponent={ListboxComponent}
+                renderGroup={renderGroup}
+                getOptionLabel={option => option.name}
+                options={DATA_LIST}
+                onChange={_handleInputChange}
+                groupBy={(option) => option.name[0].toUpperCase()}
+                renderInput={(params) => <TextField {...params} variant="filled" label={label} />}
+                renderOption={(option) => <Typography noWrap>{option.name}</Typography>}
+            />
+            :
+            "Data bulunamadı."
     )
 }
 
 SearchBox.propTypes = {
-    SCHOOL_LIST: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    DATA_LIST: PropTypes.array.isRequired,
+    label: PropTypes.string.isRequired,
     setSelectedSchool: PropTypes.func.isRequired
 }

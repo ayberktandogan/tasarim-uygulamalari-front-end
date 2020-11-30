@@ -1,5 +1,6 @@
-import { CircularProgress, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { useEffect, useState } from 'react'
+import Loading from '../../components/loading'
 import { authRoute } from '../../config/api-routes'
 import getDataFromAPI from '../../helpers/getDataFromAPI'
 // import useStyles from './registerConfirmation.styles'
@@ -41,7 +42,7 @@ export default function RegisterConfirmationPage(props) {
                         </Typography>
                     </>
                 :
-                <CircularProgress size={24} />
+                <Loading size={24} />
             }
         </>
     )
