@@ -23,8 +23,6 @@ export default function RegisterConfirmationPage(props) {
             })
     }, [confirmation_hash])
 
-    console.log(error.response)
-
     return (
         <>
             {!loading ?
