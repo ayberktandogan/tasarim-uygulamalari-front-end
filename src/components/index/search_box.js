@@ -94,11 +94,11 @@ const renderGroup = (params) => [
 
 
 export default function SearchBox(props) {
-    const { id, DATA_LIST, label, setSelectedSchool } = props
+    const { id, DATA_LIST, label, setSelectedData } = props
     const classes = useStyles()
 
     function _handleInputChange(event, value) {
-        setSelectedSchool(value)
+        setSelectedData(value)
     }
 
     return (
@@ -127,5 +127,5 @@ SearchBox.propTypes = {
     id: PropTypes.string.isRequired,
     DATA_LIST: PropTypes.array.isRequired,
     label: PropTypes.string.isRequired,
-    setSelectedSchool: PropTypes.func.isRequired
+    setSelectedData: PropTypes.func.isRequired
 }

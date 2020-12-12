@@ -111,10 +111,10 @@ export default function LoginPage() {
                             </Grid>
                         </Grid>
                     </form>
-                    {loginError && loginError.message ?
+                    {loginError ?
                         <div className={classes.ErrorContainer}>
                             <Typography variant="body1">
-                                {loginError.message}
+                                {loginError.message || <div dangerouslySetInnerHTML={{ __html: loginError }}></div>}
                             </Typography>
                         </div> : ""}
                     <div className={classes.CopyrightContainer}>

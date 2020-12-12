@@ -1,5 +1,13 @@
+import { merge } from 'lodash-es'
 import axios from '../config/axios/axios'
 
-export default async function deleteDataFromAPI({ route }) {
-    return await axios.delete(route)
+export default async function deleteDataFromAPI({ route, config }) {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'))
+        config = merge(config, { headers: { authorization: user.token } })
+    } catch (err) {
+        console.log(err)
+    }
+
+    return await axios.delete(route, config)
 }

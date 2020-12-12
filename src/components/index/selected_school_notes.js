@@ -166,7 +166,7 @@ function AddNoteComponent(props) {
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     {!departmentLoading ?
-                                        <SearchBox id="department_list" label="Bölüm Listesi" DATA_LIST={departmentData} setSelectedSchool={setSelectedDepartment} />
+                                        <SearchBox id="department_list" label="Bölüm Listesi" DATA_LIST={departmentData} setSelectedData={setSelectedDepartment} />
                                         :
                                         <Loading />}
                                 </Grid>

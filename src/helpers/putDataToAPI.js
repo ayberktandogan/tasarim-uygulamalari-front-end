@@ -1,5 +1,13 @@
+import { merge } from 'lodash-es'
 import axios from '../config/axios/axios'
 
-export default async function putDataToAPI({ route }) {
-    return await axios.put(route)
+export default async function putDataToAPI({ route, data, config }) {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'))
+        config = merge(config, { headers: { authorization: user.token } })
+    } catch (err) {
+        console.log(err)
+    }
+
+    return await axios.put(route, data, config)
 }

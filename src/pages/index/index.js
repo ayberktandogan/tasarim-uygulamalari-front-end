@@ -2,7 +2,7 @@ import { Container, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import SearchBox from "../../components/index/search_box";
 import getDataFromAPI from "../../helpers/getDataFromAPI";
-import { proxyRoute, schoolRoute } from '../../config/api-routes'
+import { departmentRoute, proxyRoute, schoolRoute } from '../../config/api-routes'
 import useStyles from './index.styles'
 import SelectedSchool from "../../components/index/selected_school";
 import SelectedSchoolNotes from "../../components/index/selected_school_notes";
@@ -16,6 +16,11 @@ export default function IndexPage() {
     const [schoolList, setSchoolList] = useState([])
     const [schoolListLoading, setSchoolListLoading] = useState(true)
     const [schoolListError, setSchoolListError] = useState(null)
+    // States for department list
+    const [departmentList, setDepartmentList] = useState([])
+    const [currentDepartment, setCurrentDepartment] = useState(null)
+    const [departmentListLoading, setDepartmentListLoading] = useState(true)
+    const [departmentListError, setDepartmentListError] = useState(null)
     // States for selected school and its notes
     const [selectedSchool, setSelectedSchool] = useState(null)
     const [selectedSchoolsNotes, setSelectedSchoolsNotes] = useState([])
@@ -31,20 +36,32 @@ export default function IndexPage() {
                     return setSchoolListLoading(false)
                 }
             }).catch(err => {
-                setSchoolListLoading(false)
                 setSchoolListError(err && err.response ? err.response.data : err.message)
+                setSchoolListLoading(false)
             })
     }, [])
 
     useEffect(() => {
+        getDataFromAPI({ route: departmentRoute })
+            .then(res => {
+                if (res.status === 200) {
+                    setDepartmentList(res.data)
+                    return setDepartmentListLoading(false)
+                }
+            }).catch(err => {
+                setDepartmentListError(err && err.response ? err.response.data : err.message)
+                setDepartmentListLoading(false)
+            })
+    }, [])
+
+    useEffect(() => {
+        if (!selectedSchool) return
         setSelectedSchoolDatabaseData(null)
         setSelectedSchoolsNotesError(null)
         setSelectedSchoolsNotes(null)
 
-        if (!selectedSchool) return
-
         setSelectedSchoolsNotesLoading(true)
-        getDataFromAPI({ route: schoolRoute + `/school-notes/${selectedSchool.domains[0]}`, limit: 8 })
+        getDataFromAPI({ route: schoolRoute + `/school-notes/${selectedSchool.domains[0]}`, config: { params: currentDepartment ? { DepartmentId: currentDepartment.id } : null } })
             .then(res => {
                 if (res.status === 200) {
                     setSelectedSchoolsNotes(res.data.notes)
@@ -52,13 +69,24 @@ export default function IndexPage() {
                     setSelectedSchoolsNotesLoading(false)
                 }
             }).catch(err => {
-                console.log(err)
                 setSelectedSchoolsNotesLoading(false)
                 setSelectedSchoolsNotesError(err.response.data)
             })
     }, [selectedSchool])
 
-    console.log(selectedSchoolsNotes)
+    useEffect(() => {
+        if (!selectedSchool) return
+        getDataFromAPI({ route: schoolRoute + `/school-notes/${selectedSchool.domains[0]}`, config: { params: currentDepartment ? { DepartmentId: currentDepartment.id } : null } })
+            .then(res => {
+                if (res.status === 200) {
+                    setSelectedSchoolsNotes(res.data.notes)
+                    setSelectedSchoolsNotesLoading(false)
+                }
+            }).catch(err => {
+                setSelectedSchoolsNotesLoading(false)
+                setSelectedSchoolsNotesError(err.response.data)
+            })
+    }, [currentDepartment])
 
     return (
         <>
@@ -73,7 +101,7 @@ export default function IndexPage() {
                         </Typography>
                         :
                         <div className={classes.SearchBoxSection}>
-                            <SearchBox id="school_list" DATA_LIST={schoolList} label="Okul Listesi" setSelectedSchool={setSelectedSchool} />
+                            <SearchBox id="school_list" DATA_LIST={schoolList} label="Okul Listesi" setSelectedData={setSelectedSchool} />
                         </div>
                     :
                     <Loading />}
@@ -94,6 +122,11 @@ export default function IndexPage() {
                         </Alert>
                         :
                         <div className={classes.SelectedSchoolNotesSection}>
+                            {
+                                departmentList.length ?
+                                    <SearchBox id="department_list" DATA_LIST={departmentList} label="Bölüm Listesi" setSelectedData={setCurrentDepartment} />
+                                    : departmentListLoading ? <Loading /> : <Alert severity="error">{departmentListError}</Alert>
+                            }
                             <SelectedSchoolNotes
                                 schoolDatabaseData={selectedSchoolDatabaseData}
                                 selectedSchoolsNotes={selectedSchoolsNotes}
