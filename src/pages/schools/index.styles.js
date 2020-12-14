@@ -4,7 +4,16 @@ export default makeStyles(theme => ({
     SchoolListContainer: {
         display: "grid",
         gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)",
-        gridGap: theme.spacing(2)
+        gridGap: theme.spacing(2),
+        [theme.breakpoints.down('md')]: {
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)",
+        },
+        [theme.breakpoints.down('sm')]: {
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+        },
+        [theme.breakpoints.down('xs')]: {
+            gridTemplateColumns: "minmax(0, 1fr)",
+        }
     },
     SchoolItem: {
         height: "100%",

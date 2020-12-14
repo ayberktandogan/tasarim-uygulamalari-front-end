@@ -164,7 +164,7 @@ export default function PDFRenderer(props) {
                                     href={props.pdf_link}
                                     target="_blank"
                                 >
-                                    <GrDocumentDownload size={16} style={{ marginTop: -3, marginRight: 8 }} /> Dosyayı İndir
+                                    <GrDocumentDownload size={16} /> <span className={classes.DownloadText}>Dosyayı İndir</span>
                                 </Button>
                             </div>
                             <div className={classes.BackButtonContainer}>

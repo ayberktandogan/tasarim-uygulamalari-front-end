@@ -5,7 +5,7 @@ import Loading from '../../components/loading'
 import { Link } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 import useStyles from './index.styles'
-import { Badge, Button, Container, Grid, Typography } from "@material-ui/core";
+import { Button, Container, Grid, Typography } from "@material-ui/core";
 import { FaGlobe } from "react-icons/fa"
 import { UniversityPlaceholder } from "../../config/images";
 import SearchBox from "../../components/index/search_box";
@@ -71,6 +71,9 @@ export default function SchoolPage(props) {
                                     Domain: <b>{data.domain}</b>
                                 </Typography>
                                 <Typography variant="body1">
+                                    Ülke: <b>{data.country}</b>
+                                </Typography>
+                                <Typography variant="body1">
                                     Oluşturulma tarihi: <b>{new Date(data.createdAt).toLocaleString()}</b>
                                 </Typography>
                                 <Typography variant="body1">
@@ -80,11 +83,9 @@ export default function SchoolPage(props) {
                         </Grid>
                         <Grid item xs={12} md={6} lg={8} xl={10}>
                             <div>
-                                <Badge color="primary" badgeContent={data.country ? data.country : ""}>
-                                    <Typography variant="h3" component="h1">
-                                        {data.name}
-                                    </Typography>
-                                </Badge>
+                                <Typography variant="h3" component="h1">
+                                    {data.name}
+                                </Typography>
                             </div>
                             <div className={classes.ButtonContainer}>
                                 <Button href={data.webpage ? data.webpage : "/"} target="_blank">

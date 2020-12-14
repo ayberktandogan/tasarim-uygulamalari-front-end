@@ -120,7 +120,15 @@ export default makeStyles(theme => ({
             "& path": {
                 stroke: grey[700]
             }
+        },
+        [theme.breakpoints.down('sm')]: {
+            "& $DownloadText": {
+                display: "none"
+            }
         }
+    },
+    DownloadText: {
+
     },
     BackButtonContainer: {
         display: "grid",
@@ -136,6 +144,9 @@ export default makeStyles(theme => ({
             "& path": {
                 stroke: grey[700]
             }
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: "none"
         }
     },
     PageInfoContainer: {
