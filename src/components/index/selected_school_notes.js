@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom'
 import { NOTES_ROUTE } from '../../config/front-routes'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/user.context';
-import axios from '../../config/axios/axios'
 import { departmentRoute, noteRoute } from '../../config/api-routes'
 import getDataFromAPI from '../../helpers/getDataFromAPI'
+import postDataToAPI from '../../helpers/postDataToAPI'
 import SearchBox from './search_box'
 import Loading from '../loading'
 import deleteDataFromAPI from '../../helpers/deleteDataFromAPI'
@@ -97,7 +97,7 @@ function AddNoteComponent(props) {
             }
         }
 
-        axios.post(noteRoute(), formData, config)
+        postDataToAPI({ route: noteRoute(), data: formData, config })
             .then(res => {
                 enqueueSnackbar('Not başarıyla eklendi.', {
                     variant: 'success',

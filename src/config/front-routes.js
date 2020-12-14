@@ -1,5 +1,5 @@
 const INDEX_ROUTE = "/"
-const SCHOOLS_ROUTE = "/okullar"
+const SCHOOLS_ROUTE = ({ school_domain }) => school_domain ? `/okul/${school_domain}` : "/okullar"
 const DEPARTMENTS_ROUTE = "/bolumler"
 const CLASSES_ROUTE = "/dersler"
 const NOTES_ROUTE = ({ note_id }) => note_id ? `/not/${note_id}` : "/notlar"

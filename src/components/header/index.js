@@ -61,25 +61,25 @@ export default function Header() {
             icon: <MdHome size={20} />
         },
         {
-            to: SCHOOLS_ROUTE,
+            to: SCHOOLS_ROUTE({ school_domain: null }),
             title: "Okullar",
             icon: <FaSchool size={20} />
         },
-        {
-            to: DEPARTMENTS_ROUTE,
-            title: "Bölümler",
-            icon: <BiBuilding size={20} />
-        },
-        {
-            to: CLASSES_ROUTE,
-            title: "Dersler",
-            icon: <SiGoogleclassroom size={20} />
-        },
-        {
-            to: NOTES_ROUTE,
-            title: "Notlar",
-            icon: <GiBookshelf size={20} />
-        }
+        // {
+        //     to: DEPARTMENTS_ROUTE,
+        //     title: "Bölümler",
+        //     icon: <BiBuilding size={20} />
+        // },
+        // {
+        //     to: CLASSES_ROUTE,
+        //     title: "Dersler",
+        //     icon: <SiGoogleclassroom size={20} />
+        // },
+        // {
+        //     to: NOTES_ROUTE,
+        //     title: "Notlar",
+        //     icon: <GiBookshelf size={20} />
+        // }
     ]
 
     function HandleThemeButtonClick() {

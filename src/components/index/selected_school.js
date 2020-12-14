@@ -5,6 +5,8 @@ import { Button, Typography } from '@material-ui/core'
 import postDataToAPI from '../../helpers/postDataToAPI'
 import { schoolRoute } from '../../config/api-routes'
 import Loading from '../loading'
+import { Link } from 'react-router-dom'
+import { SCHOOLS_ROUTE } from '../../config/front-routes'
 
 export default function SelectedSchool(props) {
     const { schoolData, error, setError, schoolDatabaseData, setSelectedSchoolDatabaseData } = props
@@ -40,9 +42,11 @@ export default function SelectedSchool(props) {
             <div className={classes.MainContainer}>
                 {schoolDatabaseData ?
                     <div className={classes.InformationContainer}>
-                        <Typography variant="h4" component="h2" gutterBottom>
-                            {schoolDatabaseData.name}
-                        </Typography>
+                        <Link to={SCHOOLS_ROUTE({ school_domain: schoolDatabaseData.domain })}>
+                            <Typography variant="h4" component="h2" gutterBottom>
+                                {schoolDatabaseData.name}
+                            </Typography>
+                        </Link>
                         {schoolDatabaseData.id ?
                             <Typography variant="body1">
                                 <b>ID</b>: {schoolDatabaseData.id}

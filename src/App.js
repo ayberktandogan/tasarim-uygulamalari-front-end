@@ -24,6 +24,7 @@ import RegisterPage from './pages/user/register'
 import RegisterConfirmationPage from "./pages/user/registerConfirmation";
 import NotePage from "./pages/note";
 import SchoolsPage from "./pages/schools";
+import SchoolPage from "./pages/school";
 
 export default function App() {
   return (
@@ -37,7 +38,8 @@ export default function App() {
           <Wrapper>
             <Switch>
               <Route exact path={INDEX_ROUTE} component={IndexPage} />
-              <Route exact path={SCHOOLS_ROUTE} component={SchoolsPage} />
+              <Route exact path={SCHOOLS_ROUTE({ school_domain: null })} component={SchoolsPage} />
+              <Route exact path={SCHOOLS_ROUTE({ school_domain: ":school_domain" })} component={SchoolPage} />
               <Route exact path={REGISTER_CONFIRMATION_ROUTE + "/:confirmation_hash"} component={RegisterConfirmationPage} />
               <Route component={FourohFourPage} />
             </Switch>

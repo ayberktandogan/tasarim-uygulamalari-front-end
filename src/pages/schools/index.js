@@ -5,6 +5,9 @@ import Loading from '../../components/loading'
 import { Link } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 import useStyles from './index.styles'
+import { SCHOOLS_ROUTE } from "../../config/front-routes";
+import { UniversityPlaceholder } from "../../config/images";
+import { Button } from "@material-ui/core";
 
 function SchoolItem(props) {
     const classes = useStyles()
@@ -12,13 +15,11 @@ function SchoolItem(props) {
 
     return (
         <>
-            <Link to="">
+            <Link to={SCHOOLS_ROUTE({ school_domain: domain })}>
                 <div className={classes.SchoolItem}>
-                    {cover_art ?
-                        <div className={classes.SchoolItemCoverart}>
-                            <img src={cover_art} alt={name} />
-                        </div>
-                        : ""}
+                    <div>
+                        <img className={classes.SchoolItemCoverart} src={cover_art || UniversityPlaceholder} alt={name} />
+                    </div>
                     {name}
                 </div>
             </Link>
@@ -31,19 +32,26 @@ export default function SchoolsPage() {
     const [schoolList, setSchoolList] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const [page, setPage] = useState(0)
+    const [canLoadMore, setLoadMore] = useState(false)
 
     useEffect(() => {
-        getDataFromAPI({ route: schoolRoute })
+        getDataFromAPI({ route: schoolRoute, config: { params: page ? { offset: page * 24 } : null } })
             .then(res => {
                 if (res.status === 200) {
-                    setSchoolList(res.data)
+                    setSchoolList(state => state.length ? ([...state, ...res.data.rows]) : res.data.rows)
+                    setLoadMore(Boolean(Math.floor(Number(res.data.count) / (24 * (page + 1)))))
                     setLoading(false)
                 }
             }).catch(err => {
                 setError(err && err.response && err.response.data ? err.response.data.message : "Bir sorunla karşılaştık.")
                 setLoading(false)
             })
-    }, [])
+    }, [page])
+
+    function _handleLoadMoreButton() {
+        setPage(state => state + 1)
+    }
 
     return (
         <>
@@ -52,6 +60,15 @@ export default function SchoolsPage() {
                     <div className={classes.SchoolListContainer}>
                         {schoolList.map(s => <SchoolItem {...s} />)}
                     </div>
+                    <div className={classes.ButtonContainer}>
+                        {canLoadMore ?
+                            <Button onClick={_handleLoadMoreButton}>
+                                Daha fazla Yükle
+                        </Button>
+                            : ""
+                        }
+                    </div>
+
                 </>
                 : loading ? <Loading /> : <Alert severity="error">{error}</Alert>
             }
