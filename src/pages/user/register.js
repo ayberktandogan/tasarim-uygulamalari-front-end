@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import { Link } from 'react-router-dom'
-import { INDEX_ROUTE, LOGIN_ROUTE } from '../../config/front-routes'
+import { INDEX_ROUTE, LOGIN_ROUTE, REGISTER_CONFIRMATION_ROUTE } from '../../config/front-routes'
 import postDataToAPI from '../../helpers/postDataToAPI'
 
 import { VscLock } from 'react-icons/vsc'
@@ -14,12 +14,14 @@ import { useState } from 'react'
 import { authRoute } from '../../config/api-routes'
 import { Typography } from '@material-ui/core'
 import Loading from '../../components/loading'
+import { Alert } from '@material-ui/lab'
 
 export default function LoginPage() {
     const classes = useStyles();
 
     const [userData, setUserData] = useState({ username: "", email: "", password: "", repeat_password: "" })
     const [registerLoading, setRegisterLoading] = useState(false)
+    const [data, setData] = useState(null)
     const [registerError, setRegisterError] = useState(null)
 
     function _handleInputChange(event) {
@@ -32,8 +34,10 @@ export default function LoginPage() {
         postDataToAPI({ route: authRoute + "/kayit-ol", data: userData })
             .then(res => {
                 if (res.status === 200) {
+                    console.log(res)
                     setRegisterLoading(false)
                     setRegisterError(res.data)
+                    if (res && res.data) setData(res.data)
                 }
             }).catch(err => {
                 console.log(err.response)
@@ -140,6 +144,13 @@ export default function LoginPage() {
                                 {registerError.message}
                             </Typography>
                         </div> : ""}
+                    {(data && data.payload && data.payload.previewMail) && (data && data.payload && data.payload.verifyHash) ?
+                        <Alert style={{ width: "100%" }} severity="success">
+                            Test ortamındasınız. Yollanan maile <a href={data.payload.previewMail} style={{ textDecoration: "underline" }} target="_blank" rel="noreferrer">bu linkten</a> ulaşabilirsiniz.
+                            Ya da hesabınızı direkt olarak <Link to={REGISTER_CONFIRMATION_ROUTE + `/${data.payload.verifyHash}`} style={{ textDecoration: "underline" }}>bu link</Link> üzerinden doğrulayabilirsiniz.
+                            </Alert>
+                        : ""
+                    }
                     <div className={classes.CopyrightContainer}>
                         <Typography variant="body1">
                             Copyright © {process.env.REACT_APP_SITE_NAME}
