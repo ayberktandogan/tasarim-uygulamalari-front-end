@@ -4,7 +4,7 @@ import axios from '../config/axios/axios'
 export default async function deleteDataFromAPI({ route, config }) {
     try {
         const user = JSON.parse(localStorage.getItem('user'))
-        config = merge(config, { headers: { authorization: user.token } })
+        config = merge(config, { headers: { authorization: user?.token } })
     } catch (err) {
         console.log(err)
     }

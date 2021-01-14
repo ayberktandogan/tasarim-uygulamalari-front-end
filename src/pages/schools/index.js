@@ -18,7 +18,9 @@ function SchoolItem(props) {
             <Link to={SCHOOLS_ROUTE({ school_domain: domain })}>
                 <div className={classes.SchoolItem}>
                     <div>
-                        <img className={classes.SchoolItemCoverart} src={cover_art || UniversityPlaceholder} alt={name} />
+                        <img
+                            className={classes.SchoolItemCoverart}
+                            src={cover_art || UniversityPlaceholder} alt={name} />
                     </div>
                     {name}
                 </div>
@@ -55,22 +57,23 @@ export default function SchoolsPage() {
 
     return (
         <>
-            {!loading && !error ?
-                <>
-                    <div className={classes.SchoolListContainer}>
-                        {schoolList.map(s => <SchoolItem {...s} />)}
-                    </div>
-                    <div className={classes.ButtonContainer}>
-                        {canLoadMore ?
-                            <Button onClick={_handleLoadMoreButton}>
-                                Daha fazla Yükle
-                        </Button>
-                            : ""
-                        }
-                    </div>
+            {
+                !loading && !error ?
+                    <>
+                        <div className={classes.SchoolListContainer}>
+                            {schoolList.map(s => <SchoolItem {...s} />)}
+                        </div>
+                        <div className={classes.ButtonContainer}>
+                            {canLoadMore ?
+                                <Button onClick={_handleLoadMoreButton}>
+                                    Daha fazla Yükle
+                            </Button>
+                                : ""
+                            }
+                        </div>
 
-                </>
-                : loading ? <Loading /> : <Alert severity="error">{error}</Alert>
+                    </>
+                    : loading ? <Loading /> : <Alert severity="error">{error}</Alert>
             }
         </>
     )

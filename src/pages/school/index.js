@@ -58,7 +58,10 @@ export default function SchoolPage(props) {
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={6} lg={4} xl={2}>
                             <div className={classes.SchoolCoverArtContainer}>
-                                <img className={classes.SchoolCoverArt} src={data.cover_art ? data.cover_art : UniversityPlaceholder} alt="" />
+                                <img
+                                    className={classes.SchoolCoverArt}
+                                    src={data.cover_art ? data.cover_art : UniversityPlaceholder}
+                                    alt="" />
                             </div>
                             <div className={classes.MetadataContainer}>
                                 <Typography variant="body1">
