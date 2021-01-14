@@ -144,11 +144,11 @@ export default function LoginPage() {
                                 {registerError.message}
                             </Typography>
                         </div> : ""}
-                    {(data && data.payload && data.payload.previewMail) && (data && data.payload && data.payload.verifyHash) ?
+                    {(data && data.payload && data.payload.previewMail) || (data && data.payload && data.payload.verifyHash) ?
                         <Alert style={{ width: "100%" }} severity="success">
-                            Test ortamındasınız. Yollanan maile <a href={data.payload.previewMail} style={{ textDecoration: "underline" }} target="_blank" rel="noreferrer">bu linkten</a> ulaşabilirsiniz.
-                            Ya da hesabınızı direkt olarak <Link to={REGISTER_CONFIRMATION_ROUTE + `/${data.payload.verifyHash}`} style={{ textDecoration: "underline" }}>bu link</Link> üzerinden doğrulayabilirsiniz.
-                            </Alert>
+                            Test ortamındasınız. {(data && data.payload && data.payload.previewMail) ? <span>Yollanan maile <a href={data.payload.previewMail} style={{ textDecoration: "underline" }} target="_blank" rel="noreferrer">bu linkten</a> ulaşabilirsiniz.</span> : ""}
+                            {(data && data.payload && data.payload.verifyHash) ? <span>Hesabınızı direkt olarak <Link to={REGISTER_CONFIRMATION_ROUTE + `/${data.payload.verifyHash}`} style={{ textDecoration: "underline" }}>bu link</Link> üzerinden doğrulayabilirsiniz.</span> : ""}
+                        </Alert>
                         : ""
                     }
                     <div className={classes.CopyrightContainer}>
